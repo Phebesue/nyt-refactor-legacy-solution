@@ -1,3 +1,6 @@
+
+import {IResult, IKeywords} from "./Interfaces";
+
 import {
   Card,
   CardImg,
@@ -7,8 +10,12 @@ import {
   CardSubtitle,
   Button,
 } from "reactstrap";
-
-const NYTDisplay = () => {
+import { SyntheticEvent } from "react";
+interface IProps{
+  results: IResult[];
+  handlePage:(event:SyntheticEvent, direction: string)=> void;
+}
+const NYTDisplay = ({results,handlePage}: IProps) => {
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
       {results.map((result) => {
@@ -29,7 +36,7 @@ const NYTDisplay = () => {
                 <br />
                 {result.keywords.length > 0 ? " Keywords: " : ""}
               </CardSubtitle>
-              {result.keywords.map((keyword) => (
+              {result.keywords.map((keyword: IKeywords) => (
                 <CardText key={keyword.value}>{keyword.value}</CardText>
               ))}
               <a href={result.web_url}>
